@@ -9,4 +9,19 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Fiftyfivelproject::Application.config.secret_key_base = 'e3c8017419f7682a006beab7ee17589fc74d6ee12f3ad036aa016d0eb48dafa36d38cc924775bc3fa7f07c302a7a7386e369cb41049734a4feb6a71d05395cb3'
+require 'securerandom'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+Fiftyfivelproject::Application.config.secret_key_base = secure_token
