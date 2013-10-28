@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe "StaticPages" do
 
+	let(:base_title) { " | 55L Project" }
+
   describe "Home page" do
     it "Should have the content 'People make the best guide books.'" do
       visit '/static_pages/home'
@@ -10,7 +12,7 @@ describe "StaticPages" do
 
     it "should have the right title" do
   		visit '/static_pages/home'
-  		expect(page).to have_title("Make No Small Plans | 55L Project")
+  		expect(page).to have_title("Make No Small Plans #{base_title}")
 		end
 
   end
@@ -23,7 +25,7 @@ describe "StaticPages" do
 
     it "should have the right title" do
   		visit '/static_pages/about'
-  		expect(page).to have_title("About the Project | 55L Project")
+  		expect(page).to have_title("About the Project #{base_title}")
 		end
 
   end
@@ -36,7 +38,7 @@ describe "StaticPages" do
 
     it "should have the right title" do
   		visit '/static_pages/apply'
-  		expect(page).to have_title("Write for the Project | 55L Project")
+  		expect(page).to have_title("Write for the Project #{base_title}")
 		end
 
   end
