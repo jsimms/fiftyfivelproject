@@ -1,6 +1,6 @@
 development:
   adapter: postgresql
-  host: localhost
+  host: fiftyfivel_development
   encoding: unicode
   database: fiftyfivel_development
   pool: 5
