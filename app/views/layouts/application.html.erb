@@ -40,7 +40,7 @@
   <!-- make these dynamic and add favicon -->
   <meta name="description" content="The 55L Project is a loosely themed collection of short-form and hyper-focused travel guides written to give readers the starting knowledge they need to stop reading and start experiencing.">
   <meta name="keywords" content="55l, 55l project, 55lproject, 55lco, travel, travel guides, travel advice, travel expert, solo travel, backpacking, explore, travel tips, flashpacker, backpacker, independent travel, experience, world, expert" />
-  <title><%= yield(:title) %> | 55L Project</title>
+  <title><%= full_title(yield(:title)) %></title>
 
   <!-- OG, make these dynamic --> 
   <meta property="og:type"    content="website"/>
@@ -72,10 +72,16 @@
 
 </head>
 <body>
-<%=	render 'layouts/header' %>
-
-<%= yield %>
-
-<%= render 'layouts/footer' %> 
+  <%=	render 'layouts/header' %>
+  <div class="container">
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "alert alert-#{key}") %>
+    <% end %>
+  </div>
+  <div class="container">
+    <%= yield %>
+    <%= render 'layouts/footer' %> 
+    <%= debug(params) if Rails.env.development? %> 
+  </div>
 </body>
 </html>

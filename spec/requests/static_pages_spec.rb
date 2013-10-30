@@ -1,47 +1,50 @@
 require 'spec_helper'
 
-describe "StaticPages" do
+describe "Static pages" do
 
-	let(:base_title) { " | 55L Project" }
+subject { page }
+
+shared_examples_for "all static pages" do 
+  it { should have_selector('h1', text: heading) }
+  it { should have_title(full_title(page_title)) }
+end 
 
   describe "Home page" do
-    it "Should have the content 'People make the best guide books.'" do
-      visit root_path
-      expect(page).to have_content('People make the best guide books.')
-    end
+    before { visit root_path }
+    let(:heading)    { 'People make the best guide books.' }
+    let(:page_title) { 'Make No Small Plans' }
 
-    it "should have the right title" do
-  		visit root_path
-  		expect(page).to have_title("Make No Small Plans #{base_title}")
-		end
-
+    it_should_behave_like "all static pages"
+    it { should_not have_title('| Home') }
   end
 
   describe "About page" do
-    it "Should have the content 'The internet is a room full of strangers. We're a bar full of friends.'" do
-      visit about_path
-      expect(page).to have_content("The internet is a room full of strangers. We're a bar full of friends.")
-    end
+    before { visit about_path }
+    let(:heading)    { "The internet is a room full of strangers. We're a bar full of friends." }
+    let(:page_title) { 'About the Project' }
 
-    it "should have the right title" do
-  		visit about_path
-  		expect(page).to have_title("About the Project #{base_title}")
-		end
-
+    it_should_behave_like "all static pages"
   end
 
   describe "Apply page" do
-    it "Should have the content 'Wanna publish with the project?'" do
-      visit apply_path
-      expect(page).to have_content("Wanna publish with the project?")
-    end
+    before { visit apply_path }
+    let(:heading)    { 'Wanna publish with the project?' }
+    let(:page_title) { 'Write for the Project' }
 
-    it "should have the right title" do
-  		visit apply_path
-  		expect(page).to have_title("Write for the Project #{base_title}")
-		end
-
+    it_should_behave_like "all static pages"
   end
 
-end
 
+  it "should have the right links on the layout" do
+    visit root_path
+    click_link "Home"
+    expect(page).to have_title(full_title('Make No Small Plans'))
+    click_link "About"
+    expect(page).to have_title(full_title('About the Project'))
+    click_link "Apply"
+    expect(page).to have_title(full_title('Write for the Project'))  
+    
+  end  
+
+
+end
