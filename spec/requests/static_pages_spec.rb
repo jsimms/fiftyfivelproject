@@ -20,7 +20,7 @@ end
 
   describe "About page" do
     before { visit about_path }
-    let(:heading)    { "The internet is a room full of strangers. We're a bar full of friends." }
+    let(:heading)    { "The internet is a room full of strangers." }
     let(:page_title) { 'About the Project' }
 
     it_should_behave_like "all static pages"
